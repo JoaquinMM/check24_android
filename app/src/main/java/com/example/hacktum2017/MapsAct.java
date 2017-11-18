@@ -4,6 +4,7 @@ package com.example.hacktum2017;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -36,44 +37,33 @@ public class MapsAct extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
-
     Context contexto;
 
-    private GoogleMap mMap;
+
 
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
+
     private GoogleApiClient client;
+    private GoogleMap mMap;
+    private String latitude_info;
+    private String longitude_info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-           /* setContentView(R.layout.activity_main);
-
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                checkLocationPermission();
-            }
-            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this);*/
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
 
         //Initialize Google Play Services
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -124,8 +114,14 @@ public class MapsAct extends FragmentActivity implements OnMapReadyCallback,
             mCurrLocationMarker.remove();
         }
 
+        Intent information = getIntent();
+        this.latitude_info = information.getStringExtra("latitude");
+        this.longitude_info = information.getStringExtra("longitude");
+
+
         //Place current location marker
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        //LatLng latLng = new LatLng(Double.valueOf(latitude_info), Double.valueOf(longitude_info));
+        LatLng latLng = new LatLng(Double.valueOf("39.4"), Double.valueOf("-0.4"));
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         /******   IMPORTANT     ****/

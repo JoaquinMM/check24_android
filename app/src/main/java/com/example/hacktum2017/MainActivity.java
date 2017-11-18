@@ -41,6 +41,15 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        Button btnphotoinformationmap = (Button) findViewById(R.id.btnphotoinformationmap);
+        btnphotoinformationmap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), ShowMapInformation.class);
+                startActivity(i);
+            }
+        });
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
