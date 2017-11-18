@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +45,9 @@ public class PhotoInfo extends AppCompatActivity implements View.OnClickListener
     private String description;
     private double latitude;
     private double longitude;
-    private String imageUrl;
+    private String arrivalDate;
+    private String departureDate;
+
     private Button findHotelsButton;
 
 
@@ -79,6 +82,22 @@ public class PhotoInfo extends AppCompatActivity implements View.OnClickListener
 
     }
 
+    public void arrivalButton(View v) {
+        DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
+        int day = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth() + 1;
+        int year = datePicker.getYear();
+        arrivalDate = Integer.valueOf(year).toString() + "-" + Integer.valueOf(month).toString() + "-" + Integer.valueOf(day).toString();
+    }
+
+    public void departureButton(View v) {
+        DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
+        int day = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth() + 1;
+        int year = datePicker.getYear();
+        departureDate = Integer.valueOf(year).toString() + "-" + Integer.valueOf(month).toString() + "-" + Integer.valueOf(day).toString();
+    }
+
     private void showDescription() {
         TextView textView = (TextView) findViewById(R.id.description);
         textView.setText(description);
@@ -90,10 +109,14 @@ public class PhotoInfo extends AppCompatActivity implements View.OnClickListener
         final ProgressDialog loading = ProgressDialog.show(this,"Showing map",msg,false,false);
         JSONObject body = new JSONObject();
         try {
-            body.put("latitude", "51.958542");
+            /*body.put("latitude", "51.958542");
             body.put("longitude", "7.627339");
             body.put("arrivalDate", "2017-11-20");
-            body.put("departureDate", "2017-11-21");
+            body.put("departureDate", "2017-11-21");*/
+            body.put("latitude", latitude);
+            body.put("longitude", longitude);
+            body.put("arrivalDate", arrivalDate);
+            body.put("departureDate", departureDate);
         } catch(JSONException jex) {
             String message = jex.getMessage();
             Log.d("JSON exception", message);
@@ -105,14 +128,7 @@ public class PhotoInfo extends AppCompatActivity implements View.OnClickListener
                     @Override
                     public void onResponse(String s) {
                         try {
-
                             JSONObject picData = new JSONObject(s);
-                            /*JSONObject firstResponse = picData.getJSONArray("hotels").getJSONObject(0);
-                            JSONObject landmarkAnnotation = firstResponse.getJSONArray("landmarkAnnotations").getJSONObject(0);
-                            String description = landmarkAnnotation.getString("description");
-                            JSONObject location = landmarkAnnotation.getJSONArray("location").getJSONObject(0).getJSONObject("latLng");
-                            double latitude = location.getDouble("latitude");
-                            double longitude = location.getDouble("longitude");*/
                             Intent mapInfo = new Intent(PhotoInfo.this, ShowMapInformation.class);
                             mapInfo.putExtra("hotels", picData.toString());
                             PhotoInfo.this.startActivity(mapInfo);
@@ -123,7 +139,7 @@ public class PhotoInfo extends AppCompatActivity implements View.OnClickListener
                         //Disimissing the progress dialog
                         loading.dismiss();
                         //Showing toast message of the response
-                        Toast.makeText(PhotoInfo.this, s , Toast.LENGTH_LONG).show();
+                        Toast.makeText(PhotoInfo.this, "Success" , Toast.LENGTH_LONG).show();
                         //finish();
                     }
                 },

@@ -170,7 +170,7 @@ public class Aportar extends AppCompatActivity implements View.OnClickListener  
                         //Disimissing the progress dialog
                         loading.dismiss();
                         //Showing toast message of the response
-                        Toast.makeText(Aportar.this, s , Toast.LENGTH_LONG).show();
+                        Toast.makeText(Aportar.this, "Success" , Toast.LENGTH_LONG).show();
                         //finish();
                     }
                 },
