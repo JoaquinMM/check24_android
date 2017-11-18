@@ -27,11 +27,13 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.mcxiaoke.volley:library-aar:1.0.0'
 
+    //compile group: 'org.json', name: 'json', version: '20171018'
+
+    compile 'com.mcxiaoke.volley:library-aar:1.0.0'
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
-    compile  'com.loopj.android:android-async-http:1.4.5'
+    compile 'com.loopj.android:android-async-http:1.4.5'
     compile 'com.github.snowdream.android:smartimageview:0.0.2'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
     compile 'com.google.code.gson:gson:2.4'
@@ -41,5 +43,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.slider:library:1.1.5@aar'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }

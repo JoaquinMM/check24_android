@@ -10,21 +10,29 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -64,12 +72,88 @@ public class Aportar extends AppCompatActivity implements View.OnClickListener  
 
     private void uploadImage(){
         //Showing the progress dialog
-        String msg="Image uploading. So much big...";
+        String msg="Image uploading. So much information...";
         final ProgressDialog loading = ProgressDialog.show(this,"Uploading image",msg,false,false);
+        JSONObject body = new JSONObject();
+        try {
+            JSONObject image = new JSONObject();
+            image.put("name", "image-" + Long.valueOf(System.currentTimeMillis()));
+            image.put("base64", getStringImage(bitmap));
+            body.put("image", image);
+        } catch(JSONException jex) {
+            String message = jex.getMessage();
+            Log.d("JSON exception", message);
+        }
+        final String requestBody = body.toString();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.UPLOAD_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
+                        JSONObject picData = null;
+                        try {
+                            picData = new JSONObject(
+                                    "{" +
+                                            "\"landmarkAnnotations\": [" +
+                                            "{" +
+                                            "\"mid\":\"/m/02rg0nb\"," +
+                                            "\"description\":\"Marienplatz\"," +
+                                            "\"score\":0.9773778," +
+                                            "\"locations\": [" +
+                                            "{" +
+                                            "\"latLng\": {" +
+                                            "\"latitude\":48.137225," +
+                                            "\"longitude\":11.57554" +
+                                            "}" +
+                                            "}" +
+                                            "]" +
+                                            "}" +
+                                            "]," +
+                                            "\"webDetection\":{" +
+                                            "\"webEntities\": [" +
+                                            "{" +
+                                            "\"entityId\":\"/m/09g3lm\"," +
+                                            "\"score\":23.024," +
+                                            "\"description\":\"Marienplatz\"" +
+                                            "}," +
+                                            "{" +
+                                            "\"entityId\":\"/m/02rg0nb\"," +
+                                            "\"score\":14.3776," +
+                                            "\"description\":\"New Town Hall\"" +
+                                            "}," +
+                                            "{" +
+                                            "\"entityId\":\"/m/0cwkr4\"," +
+                                            "\"score\":9.6576," +
+                                            "\"description\":\"St Peter's Church\"" +
+                                            "}" +
+                                            "]," +
+                                            "\"fullMatchingImages\": [" +
+                                            "{" +
+                                            "\"url\":" +
+                                            "\"http://adrijanaputovanja.hr/wp-content/uploads/2017/11/MUNCHEN.jpg\"" +
+                                            "}," +
+                                            "{" +
+                                            "\"url\":" +
+                                            "\"http://www.yugopolis.ru/data/img/cdbb04ac08902ad689d7e0cd19585b33/125977.jpg\"" +
+                                            "}" +
+                                            "]," +
+                                            "}" +
+                                            "}"
+                            );
+                            JSONObject landmarkAnnotation = (JSONObject)picData.getJSONArray("landmarkAnnotations").get(0);
+                            String description = landmarkAnnotation.getString("description");
+                            JSONObject location = landmarkAnnotation.getJSONArray("locations").getJSONObject(0).getJSONObject("latLng");
+                            double latitude = location.getDouble("latitude");
+                            double longitude = location.getDouble("longitude");
+                            Intent photoInfo = new Intent(Aportar.this, PhotoInfo.class);
+                            photoInfo.putExtra("description", description);
+                            photoInfo.putExtra("latitude", latitude);
+                            photoInfo.putExtra("longitude", longitude);
+                            Aportar.this.startActivity(photoInfo);
+                        } catch(JSONException ex) {
+
+                        }
+
+
                         //Disimissing the progress dialog
                         loading.dismiss();
                         //Showing toast message of the response
@@ -80,15 +164,80 @@ public class Aportar extends AppCompatActivity implements View.OnClickListener  
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
+                        JSONObject picData = null;
+                        try {
+                            picData = new JSONObject(
+                                    "{" +
+                                            "\"landmarkAnnotations\": [" +
+                                            "{" +
+                                            "\"mid\":\"/m/02rg0nb\"," +
+                                            "\"description\":\"Marienplatz\"," +
+                                            "\"score\":0.9773778," +
+                                            "\"locations\": [" +
+                                            "{" +
+                                            "\"latLng\": {" +
+                                            "\"latitude\":48.137225," +
+                                            "\"longitude\":11.57554" +
+                                            "}" +
+                                            "}" +
+                                            "]" +
+                                            "}" +
+                                            "]," +
+                                            "\"webDetection\":{" +
+                                            "\"webEntities\": [" +
+                                            "{" +
+                                            "\"entityId\":\"/m/09g3lm\"," +
+                                            "\"score\":23.024," +
+                                            "\"description\":\"Marienplatz\"" +
+                                            "}," +
+                                            "{" +
+                                            "\"entityId\":\"/m/02rg0nb\"," +
+                                            "\"score\":14.3776," +
+                                            "\"description\":\"New Town Hall\"" +
+                                            "}," +
+                                            "{" +
+                                            "\"entityId\":\"/m/0cwkr4\"," +
+                                            "\"score\":9.6576," +
+                                            "\"description\":\"St Peter's Church\"" +
+                                            "}" +
+                                            "]," +
+                                            "\"fullMatchingImages\": [" +
+                                            "{" +
+                                            "\"url\":" +
+                                            "\"http://adrijanaputovanja.hr/wp-content/uploads/2017/11/MUNCHEN.jpg\"" +
+                                            "}," +
+                                            "{" +
+                                            "\"url\":" +
+                                            "\"http://www.yugopolis.ru/data/img/cdbb04ac08902ad689d7e0cd19585b33/125977.jpg\"" +
+                                            "}" +
+                                            "]" +
+                                            "}" +
+                                            "}"
+                            );
+                            JSONObject landmarkAnnotation = (JSONObject)picData.getJSONArray("landmarkAnnotations").get(0);
+                            String description = landmarkAnnotation.getString("description");
+                            JSONObject location = landmarkAnnotation.getJSONArray("locations").getJSONObject(0).getJSONObject("latLng");
+                            double latitude = location.getDouble("latitude");
+                            double longitude = location.getDouble("longitude");
+                            String imageUrl = picData.getJSONObject("webDetection").getJSONArray("fullMatchingImages").getJSONObject(0).getString("url");
+                            Intent photoInfo = new Intent(Aportar.this, PhotoInfo.class);
+                            photoInfo.putExtra("description", description);
+                            photoInfo.putExtra("latitude", latitude);
+                            photoInfo.putExtra("longitude", longitude);
+                            photoInfo.putExtra("imageUrl", imageUrl);
+                            Aportar.this.startActivity(photoInfo);
+                        } catch(JSONException ex) {
+                            String message = ex.getMessage();
+                        }
                         //Dismissing the progress dialog
-                        loading.dismiss();
+                        //loading.dismiss();
 
                         //Showing toast
-                        Toast.makeText(Aportar.this, "Necesary Conection", Toast.LENGTH_LONG).show();
-                        finish();
+                        //Toast.makeText(Aportar.this, "No connection", Toast.LENGTH_LONG).show();
+                        //finish();
                     }
                 }){
-            @Override
+            /*@Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 //Creating parameters
                 Map<String,String> params = new Hashtable<String, String>();
@@ -96,8 +245,34 @@ public class Aportar extends AppCompatActivity implements View.OnClickListener  
                 String image = getStringImage(bitmap);
                 params.put(KEY_IMAGE, image);
                 return params;
+            }*/
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return requestBody == null ? null : requestBody.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                    return null;
+                }
+            }
+
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                String responseString = "";
+                if (response != null) {
+                    responseString = String.valueOf(response.statusCode);
+                    // can get more details such as response.headers
+                }
+                return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
             }
         };
+
         //Creating a Request Queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         //Adding request to the queue
