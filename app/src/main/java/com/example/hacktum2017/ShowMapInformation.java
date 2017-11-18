@@ -54,12 +54,17 @@ public class ShowMapInformation extends AppCompatActivity implements View.OnClic
     private GoogleMap map;
     private SupportMapFragment mapFragment;
     private JSONArray results;
+    private String finalJson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_map_information);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        Intent intent = getIntent();
+        finalJson = intent.getStringExtra("hotels");
+
 
         // Showing and Enabling clicks on the Home/Up button
         if (getSupportActionBar() != null) {
@@ -127,27 +132,13 @@ public class ShowMapInformation extends AppCompatActivity implements View.OnClic
             BufferedReader reader = null;
 
             try {
-                URL url = new URL(params[0]);
-
-                connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-                InputStream stream = connection.getInputStream();
-                reader = new BufferedReader(new InputStreamReader(stream));
-                StringBuffer buffer = new StringBuffer();
-                String line ="";
-                while ((line = reader.readLine()) != null){
-                    buffer.append(line);
-                }
-
-                String finalJson = buffer.toString();
-                Log.d("NAME2", String.valueOf(finalJson));
+                Log.d("NAME2", finalJson);
 
                 JSONObject parentObject = new JSONObject(finalJson);
-                JSONObject parentArray = parentObject.getJSONObject("search");
 
                 List<Check24> Check24List = new ArrayList<>();
 
-                JSONArray finalObjectbefore = parentArray.getJSONArray("results");
+                JSONArray finalObjectbefore = parentObject.getJSONArray("hotels");
                 results = finalObjectbefore;
                 Gson gson = new Gson();
                 for(int i=0; i<finalObjectbefore.length(); i++) {
@@ -157,10 +148,6 @@ public class ShowMapInformation extends AppCompatActivity implements View.OnClic
                 }
                 return Check24List;
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             } catch (JSONException e) {
                 e.printStackTrace();
             } finally {
