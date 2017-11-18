@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">hacktum2017</string>
+    <string name="app_name">HackTUM 2017</string>
+    <string name="action_settings">Option</string>
+    <string name="camera_button"><!--&#xf030;--> Foto</string>
+    <string name="title_activity_detail">HackTUM 2017</string>
+    <string name="Take_a_photo">Take a photo</string>
+    <string name="Settings">Settings</string>
+    <string name="button_name_eye">Search taking photo</string>
+    <string name="photo_information">Photo information</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="pref_miniaturas">Show notifications</string>
+
 </resources>

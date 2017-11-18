@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+<color name="colorPrimary">#2E334A</color>
+<color name="colorPrimaryDark">#2E334A</color>
+<color name="colorRating">#F6FF00</color>
+<color name="colorAccent">#FF4081</color>
+<color name="button_normal">#85db93</color>
+<color name="button_pressed">#44f064</color>
+<color name="button_normal2">#265AA4</color>
+<color name="button_pressed2">#265AFA</color>
+    <!-- blue haclkatum #0B0E64-->
 </resources>
