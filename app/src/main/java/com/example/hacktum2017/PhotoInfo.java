@@ -108,6 +108,7 @@ public class PhotoInfo extends AppCompatActivity implements View.OnClickListener
         int month = datePicker.getMonth() + 1;
         int year = datePicker.getYear();
         arrivalDate = Integer.valueOf(year).toString() + "-" + Integer.valueOf(month).toString() + "-" + Integer.valueOf(day).toString();
+        Toast.makeText(PhotoInfo.this, "Arrival date set to " + arrivalDate, Toast.LENGTH_LONG).show();
     }
 
     public void departureButton(View v) {
@@ -116,6 +117,7 @@ public class PhotoInfo extends AppCompatActivity implements View.OnClickListener
         int month = datePicker.getMonth() + 1;
         int year = datePicker.getYear();
         departureDate = Integer.valueOf(year).toString() + "-" + Integer.valueOf(month).toString() + "-" + Integer.valueOf(day).toString();
+        Toast.makeText(PhotoInfo.this, "Departure date set to " + departureDate, Toast.LENGTH_LONG).show();
     }
 
     private void showDescription() {
