@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -45,10 +47,12 @@ public class PhotoInfo extends AppCompatActivity implements View.OnClickListener
     private String description;
     private double latitude;
     private double longitude;
+
     private String arrivalDate;
     private String departureDate;
-
+    private String bitmap;
     private Button findHotelsButton;
+    private ImageView imageView;
 
 
     @Override
@@ -61,7 +65,12 @@ public class PhotoInfo extends AppCompatActivity implements View.OnClickListener
         description = intent.getStringExtra("description");
         latitude = intent.getDoubleExtra("latitude", 0.0);
         longitude = intent.getDoubleExtra("longitude", 0.0);
+        bitmap = intent.getStringExtra("bitmap_image");
+       // Bitmap image_bitmap = getImageString(bitmap);
+        Bitmap image_bitmap = StringToBitMap(bitmap);
 
+        imageView  = (ImageView) findViewById(R.id.imageView3);
+        imageView.setImageBitmap(image_bitmap);
 
         showDescription();
         //findPicture();
@@ -75,6 +84,17 @@ public class PhotoInfo extends AppCompatActivity implements View.OnClickListener
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+    }
+
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte=Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
         }
     }
 
