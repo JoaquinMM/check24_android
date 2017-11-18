@@ -152,10 +152,9 @@ public class Aportar extends AppCompatActivity implements View.OnClickListener  
                                             "}" +
                                             "}"
                             );*/
-                            JSONObject firstResponse = picData.getJSONArray("responses").getJSONObject(0);
-                            JSONObject landmarkAnnotation = firstResponse.getJSONArray("landmarkAnnotations").getJSONObject(0);
-                            String description = landmarkAnnotation.getString("description");
-                            JSONObject location = landmarkAnnotation.getJSONArray("location").getJSONObject(0).getJSONObject("latLng");
+                            JSONObject response = picData.getJSONObject("response");
+                            String description = response.getString("description");
+                            JSONObject location = response.getJSONArray("locations").getJSONObject(0).getJSONObject("latLng");
                             double latitude = location.getDouble("latitude");
                             double longitude = location.getDouble("longitude");
                             Intent photoInfo = new Intent(Aportar.this, PhotoInfo.class);
@@ -226,7 +225,7 @@ public class Aportar extends AppCompatActivity implements View.OnClickListener  
                 String data = "";
                 if(response != null) {
                     try {
-                        data = new JSONArray(new String(response.data)).toString();
+                        data = new JSONObject(new String(response.data)).toString();
                     } catch (JSONException ex) {
                         String message = ex.getMessage();
                         Log.d("response parsing error", message);
