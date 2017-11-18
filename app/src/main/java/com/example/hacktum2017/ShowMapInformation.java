@@ -42,6 +42,9 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Handler;
+
+import static java.lang.Thread.sleep;
 
 
 public class ShowMapInformation extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
@@ -51,33 +54,6 @@ public class ShowMapInformation extends AppCompatActivity implements View.OnClic
     private GoogleMap map;
     private SupportMapFragment mapFragment;
     private JSONArray results;
-
-    @Override
-    public void onMapReady(GoogleMap map) {
-        this.map = map;
-        for(int i=0; i<results.length(); i++) {
-            JSONObject finalObject;
-            String longitude = "";
-            String latitude = "";
-            try {
-                finalObject = results.getJSONObject(i);
-                longitude = finalObject.getString("longitude");
-                latitude = finalObject.getString("latitude");
-            } catch(JSONException ex) {
-                String message = ex.getMessage();
-                Log.d("exception in map", message);
-            }
-            LatLng latLng = new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
-            map.addMarker(new MarkerOptions()
-                    .title("Site")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                    .position(latLng));
-            map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
-
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,13 +71,47 @@ public class ShowMapInformation extends AppCompatActivity implements View.OnClic
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
 
+        try {
+            sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        mapFragment.getMapAsync(this);
 
 
     }
 
 
+    @Override
+    public void onMapReady(GoogleMap map) {
+        this.map = map;
+        for(int i=0; i<results.length(); i++) {
+            JSONObject finalObject;
+            String longitude = "";
+            String latitude = "";
+            String site_name = "";
+            try {
+                finalObject = results.getJSONObject(i);
+                longitude = finalObject.getString("longitude");
+                latitude = finalObject.getString("latitude");
+                site_name = finalObject.getString("name");
+            } catch(JSONException ex) {
+                String message = ex.getMessage();
+                Log.d("exception in map", message);
+            }
+            LatLng latLng = new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
+            map.addMarker(new MarkerOptions()
+                    .title(site_name)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                    .position(latLng));
+            map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+
+        }
+    }
 
 
     public class JSONTask extends AsyncTask<String,String, List<Check24> > {
