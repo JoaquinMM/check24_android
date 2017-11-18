@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity{
         btnphotoinformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), PhotoInformation.class);
+                Intent i = new Intent(getApplicationContext(), PhotoInfo.class);
                 startActivity(i);
             }
         });
