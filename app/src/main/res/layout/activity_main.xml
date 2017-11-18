@@ -58,6 +58,19 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="100dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_menu_info_blanco"
+                    android:background="@android:color/transparent"
+                    android:text="@string/photo_information"
+                    android:textColor="@android:color/white"
+                    android:id="@+id/btnphotoinformationmap"
+                    android:layout_centerVertical="true"
+                    android:layout_alignLeft="@+id/btnphotoinformation"
+                    android:layout_alignStart="@+id/btnphotoinformation" />
+
             </RelativeLayout>
         </LinearLayout>
 

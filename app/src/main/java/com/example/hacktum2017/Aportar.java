@@ -33,6 +33,9 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
+import java.sql.Time;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Hashtable;
 import java.util.Map;
@@ -50,6 +53,7 @@ public class Aportar extends AppCompatActivity implements View.OnClickListener  
     private Bitmap bitmap;
     private int PICK_IMAGE_REQUEST = 1;
     private String KEY_IMAGE = "image";
+    private String KEY_NAME = "image";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,14 @@ public class Aportar extends AppCompatActivity implements View.OnClickListener  
     }
 
     private void uploadImage(){
+
+        int hours1 = new Time(System.currentTimeMillis()).getHours();
+        int hours2 = new Time(System.currentTimeMillis()).getMinutes();
+        int hours3 = new Time(System.currentTimeMillis()).getSeconds();
+        String image2 = getStringImage(bitmap);
+        Log.d("NAME", "image-" + Integer.toString(hours3) + "-" + Integer.toString(hours2)+ "-" +  Integer.toString(hours1));
+        Log.d("PHOTO", image2);
+
         //Showing the progress dialog
         String msg="Image uploading. So much information...";
         final ProgressDialog loading = ProgressDialog.show(this,"Uploading image",msg,false,false);
@@ -178,10 +190,15 @@ public class Aportar extends AppCompatActivity implements View.OnClickListener  
             /*@Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 //Creating parameters
+                int hours1 = new Time(System.currentTimeMillis()).getHours();
+                int hours2 = new Time(System.currentTimeMillis()).getMinutes();
+                int hours3 = new Time(System.currentTimeMillis()).getSeconds();
+
                 Map<String,String> params = new Hashtable<String, String>();
                 //Adding parameters
                 String image = getStringImage(bitmap);
                 params.put(KEY_IMAGE, image);
+                params.put(KEY_NAME, "image-" + Integer.toString(hours3) + "-" + Integer.toString(hours2)+ "-" +  Integer.toString(hours1));
                 return params;
             }*/
 
