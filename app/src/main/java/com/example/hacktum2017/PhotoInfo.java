@@ -127,7 +127,7 @@ public class PhotoInfo extends AppCompatActivity implements View.OnClickListener
 
     public void findHotelsButton(/*View v*/) {
         //Showing the progress dialog
-        String msg="No Sended to showing in map";
+        String msg="Displaying available hotels";
         final ProgressDialog loading = ProgressDialog.show(this,"Showing map",msg,false,false);
         JSONObject body = new JSONObject();
         try {
