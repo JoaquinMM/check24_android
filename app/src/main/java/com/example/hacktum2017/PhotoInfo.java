@@ -64,7 +64,7 @@ public class PhotoInfo extends AppCompatActivity implements View.OnClickListener
         //findPicture();
 
         Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
-        findHotelsButton = (Button) findViewById(R.id.button4);
+        findHotelsButton = (Button) findViewById(R.id.button5);
         findHotelsButton.setTypeface(font);
         findHotelsButton.setOnClickListener(this);
 
