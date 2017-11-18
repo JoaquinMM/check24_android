@@ -98,10 +98,6 @@ public class PhotoInfo extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    private void findPicture() {
-
-    }
-
     public void arrivalButton(View v) {
         DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
         int day = datePicker.getDayOfMonth();

@@ -30,15 +30,11 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
 import java.sql.Time;
-
 import java.io.UnsupportedEncodingException;
-import java.util.Hashtable;
-import java.util.Map;
+
 
 public class Aportar extends AppCompatActivity implements View.OnClickListener  {
 
@@ -52,8 +48,6 @@ public class Aportar extends AppCompatActivity implements View.OnClickListener  
 
     private Bitmap bitmap;
     private int PICK_IMAGE_REQUEST = 1;
-    private String KEY_IMAGE = "image";
-    private String KEY_NAME = "image";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,14 +70,6 @@ public class Aportar extends AppCompatActivity implements View.OnClickListener  
     }
 
     private void uploadImage(){
-
-        int hours1 = new Time(System.currentTimeMillis()).getHours();
-        int hours2 = new Time(System.currentTimeMillis()).getMinutes();
-        int hours3 = new Time(System.currentTimeMillis()).getSeconds();
-        String image2 = getStringImage(bitmap);
-        Log.d("NAME", "image-" + Integer.toString(hours3) + "-" + Integer.toString(hours2)+ "-" +  Integer.toString(hours1));
-        Log.d("PHOTO", image2);
-
         //Showing the progress dialog
         String msg="Image uploading. So much information...";
         final ProgressDialog loading = ProgressDialog.show(this,"Uploading image",msg,false,false);
@@ -104,54 +90,6 @@ public class Aportar extends AppCompatActivity implements View.OnClickListener  
                     public void onResponse(String s) {
                         try {
                             JSONObject picData = new JSONObject(s);
-                           /* picData = new JSONObject(
-                                    "{" +
-                                            "\"landmarkAnnotations\": [" +
-                                            "{" +
-                                            "\"mid\":\"/m/02rg0nb\"," +
-                                            "\"description\":\"Marienplatz\"," +
-                                            "\"score\":0.9773778," +
-                                            "\"locations\": [" +
-                                            "{" +
-                                            "\"latLng\": {" +
-                                            "\"latitude\":48.137225," +
-                                            "\"longitude\":11.57554" +
-                                            "}" +
-                                            "}" +
-                                            "]" +
-                                            "}" +
-                                            "]," +
-                                            "\"webDetection\":{" +
-                                            "\"webEntities\": [" +
-                                            "{" +
-                                            "\"entityId\":\"/m/09g3lm\"," +
-                                            "\"score\":23.024," +
-                                            "\"description\":\"Marienplatz\"" +
-                                            "}," +
-                                            "{" +
-                                            "\"entityId\":\"/m/02rg0nb\"," +
-                                            "\"score\":14.3776," +
-                                            "\"description\":\"New Town Hall\"" +
-                                            "}," +
-                                            "{" +
-                                            "\"entityId\":\"/m/0cwkr4\"," +
-                                            "\"score\":9.6576," +
-                                            "\"description\":\"St Peter's Church\"" +
-                                            "}" +
-                                            "]," +
-                                            "\"fullMatchingImages\": [" +
-                                            "{" +
-                                            "\"url\":" +
-                                            "\"http://adrijanaputovanja.hr/wp-content/uploads/2017/11/MUNCHEN.jpg\"" +
-                                            "}," +
-                                            "{" +
-                                            "\"url\":" +
-                                            "\"http://www.yugopolis.ru/data/img/cdbb04ac08902ad689d7e0cd19585b33/125977.jpg\"" +
-                                            "}" +
-                                            "]," +
-                                            "}" +
-                                            "}"
-                            );*/
                             JSONObject response = picData.getJSONObject("response");
                             String description = response.getString("description");
                             JSONObject location = response.getJSONArray("locations").getJSONObject(0).getJSONObject("latLng");
@@ -165,9 +103,9 @@ public class Aportar extends AppCompatActivity implements View.OnClickListener  
                             photoInfo.putExtra("bitmap_image", image_bitmap);
                             Aportar.this.startActivity(photoInfo);
                         } catch(JSONException ex) {
-
+                            String message = ex.getMessage();
+                            Log.d("json parsing error", message);
                         }
-
 
                         //Disimissing the progress dialog
                         loading.dismiss();
@@ -188,20 +126,6 @@ public class Aportar extends AppCompatActivity implements View.OnClickListener  
                         finish();
                     }
                 }){
-            /*@Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                //Creating parameters
-                int hours1 = new Time(System.currentTimeMillis()).getHours();
-                int hours2 = new Time(System.currentTimeMillis()).getMinutes();
-                int hours3 = new Time(System.currentTimeMillis()).getSeconds();
-
-                Map<String,String> params = new Hashtable<String, String>();
-                //Adding parameters
-                String image = getStringImage(bitmap);
-                params.put(KEY_IMAGE, image);
-                params.put(KEY_NAME, "image-" + Integer.toString(hours3) + "-" + Integer.toString(hours2)+ "-" +  Integer.toString(hours1));
-                return params;
-            }*/
 
             @Override
             public String getBodyContentType() {
