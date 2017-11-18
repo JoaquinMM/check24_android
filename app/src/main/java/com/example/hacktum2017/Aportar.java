@@ -161,6 +161,8 @@ public class Aportar extends AppCompatActivity implements View.OnClickListener  
                             photoInfo.putExtra("description", description);
                             photoInfo.putExtra("latitude", latitude);
                             photoInfo.putExtra("longitude", longitude);
+                            String image_bitmap = getStringImage(bitmap);
+                            photoInfo.putExtra("bitmap_image", image_bitmap);
                             Aportar.this.startActivity(photoInfo);
                         } catch(JSONException ex) {
 
@@ -271,6 +273,8 @@ public class Aportar extends AppCompatActivity implements View.OnClickListener  
                 if(contador==1) {
                     //Getting the Bitmap from Gallery
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+
+
                     //Setting the Bitmap to ImageView
                     imageView.setImageBitmap(bitmap);
 
