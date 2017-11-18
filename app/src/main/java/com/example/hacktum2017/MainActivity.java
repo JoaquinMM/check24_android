@@ -32,24 +32,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        Button btnphotoinformation = (Button) findViewById(R.id.btnphotoinformation);
-        btnphotoinformation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), PhotoInfo.class);
-                startActivity(i);
-            }
-        });
-
-        Button btnphotoinformationmap = (Button) findViewById(R.id.btnphotoinformationmap);
-        btnphotoinformationmap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ShowMapInformation.class);
-                startActivity(i);
-            }
-        });
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
