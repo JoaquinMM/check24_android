@@ -7,6 +7,8 @@
     <string name="Settings">Settings</string>
     <string name="button_name_eye">Search taking photo</string>
     <string name="photo_information">Photo information</string>
+
+    <string name="PhotoInfo">Panoram</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_section1">Section 1</string>

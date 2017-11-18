@@ -62,7 +62,7 @@
             android:name=".PhotoInfo"
             android:parentActivityName=".Aportar"
             android:screenOrientation="portrait"
-            android:label="Whathever we want">
+            android:label="@string/PhotoInfo">
         </activity>
 
     </application>
