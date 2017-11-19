@@ -41,6 +41,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Time;
+import java.util.Calendar;
+import java.util.Date;
 
 public class PhotoInfo extends AppCompatActivity implements View.OnClickListener {
 
@@ -129,7 +131,15 @@ public class PhotoInfo extends AppCompatActivity implements View.OnClickListener
         try {
             body.put("latitude", latitude);
             body.put("longitude", longitude);
+            if(arrivalDate == null) {
+                Calendar calendar = Calendar.getInstance();
+                arrivalDate = Integer.toString(calendar.get(Calendar.YEAR)) + "-" + Integer.toString(calendar.get(Calendar.MONTH) + 1) + "-" + Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
+            }
             body.put("arrivalDate", arrivalDate);
+            if(departureDate == null) {
+                Calendar calendar = Calendar.getInstance();
+                departureDate = Integer.toString(calendar.get(Calendar.YEAR)) + "-" + Integer.toString(calendar.get(Calendar.MONTH) + 1) + "-" + Integer.toString(calendar.get(Calendar.DAY_OF_MONTH) + 1);
+            }
             body.put("departureDate", departureDate);
         } catch(JSONException jex) {
             String message = jex.getMessage();
