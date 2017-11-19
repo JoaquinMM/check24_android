@@ -1,70 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.hacktum2017.PhotoInfo">
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="191dp"
-        android:layout_height="138dp"
-        app:srcCompat="@drawable/cast_abc_scrubber_control_off_mtrl_alpha"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/description" />
+        android:layout_width="362dp"
+        android:layout_height="223dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        app:srcCompat="@drawable/cast_abc_scrubber_control_off_mtrl_alpha" />
 
     <TextView
         android:id="@+id/description"
-        android:layout_width="104dp"
-        android:layout_height="22dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageView3"
+        android:layout_marginTop="5dp"
+        android:layout_weight="1"
         android:text="TextView"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        android:textAlignment="center"
+        android:textColor="@color/button_normal2"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Find Hotels"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_weight="1"
+            android:background="@drawable/departure"
+            android:onClick="departureButton"
+            android:layout_marginRight="59dp"
+            android:layout_marginEnd="59dp"
+            android:layout_below="@+id/description"
+            android:layout_alignRight="@+id/datePicker"
+            android:layout_alignEnd="@+id/datePicker"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
 
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="arrivalButton"
-        android:text="Arrival"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/button7"
-        app:layout_constraintTop_toBottomOf="@+id/description"
-        app:layout_constraintBottom_toTopOf="@+id/datePicker" />
-
-    <Button
-        android:id="@+id/button7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="departureButton"
-        android:text="Departure"
-        app:layout_constraintLeft_toRightOf="@+id/button6"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description"
-        app:layout_constraintBottom_toTopOf="@+id/datePicker" />
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_weight="1"
+            android:background="@drawable/arrive"
+            android:onClick="arrivalButton"
+            android:layout_marginLeft="70dp"
+            android:layout_marginStart="70dp"
+            android:layout_below="@+id/description"
+            android:layout_alignLeft="@+id/datePicker"
+            android:layout_alignStart="@+id/datePicker"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
 
     <DatePicker
         android:id="@+id/datePicker"
-        android:layout_width="335dp"
-        android:layout_height="247dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
-        app:layout_constraintTop_toBottomOf="@+id/button6" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:layout_below="@+id/button7"
+        android:layout_marginTop="11dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="match_parent"
+        android:textColor="@android:color/white"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/button2"
+        android:text="Find Hotels"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="463dp" />
+
+
+</RelativeLayout>
