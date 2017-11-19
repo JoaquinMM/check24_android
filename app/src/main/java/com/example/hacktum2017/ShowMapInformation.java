@@ -26,6 +26,9 @@ public class ShowMapInformation extends AppCompatActivity implements View.OnClic
     private GoogleMap map;
     private SupportMapFragment mapFragment;
     private String finalJson;
+    private double centreLongitude;
+    private double centreLatitude;
+    private String description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,9 @@ public class ShowMapInformation extends AppCompatActivity implements View.OnClic
 
         Intent intent = getIntent();
         finalJson = intent.getStringExtra("hotels");
+        centreLatitude = intent.getDoubleExtra("centreLatitude", 0.0);
+        centreLongitude = intent.getDoubleExtra("centreLongitude", 0.0);
+        description = intent.getStringExtra("description");
 
         // Showing and Enabling clicks on the Home/Up button
         if (getSupportActionBar() != null) {
@@ -57,6 +63,13 @@ public class ShowMapInformation extends AppCompatActivity implements View.OnClic
     @Override
     public void onMapReady(GoogleMap map) {
         this.map = map;
+        LatLng centreLatLng = new LatLng(Double.valueOf(centreLatitude), Double.valueOf(centreLongitude));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(centreLatLng, 13));
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        map.addMarker(new MarkerOptions()
+                .title(description)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                .position(centreLatLng));
         try {
             JSONObject parentObject = new JSONObject(finalJson);
             JSONArray results = parentObject.getJSONArray("hotels");
@@ -66,12 +79,11 @@ public class ShowMapInformation extends AppCompatActivity implements View.OnClic
                 String latitude = finalObject.getString("latitude");
                 String site_name = finalObject.getString("name");
                 LatLng latLng = new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
+                //map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
                 map.addMarker(new MarkerOptions()
                         .title(site_name)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                         .position(latLng));
-                map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             }
         } catch (JSONException ex) {
             String message = ex.getMessage();

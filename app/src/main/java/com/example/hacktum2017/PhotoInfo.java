@@ -127,10 +127,6 @@ public class PhotoInfo extends AppCompatActivity implements View.OnClickListener
         final ProgressDialog loading = ProgressDialog.show(this,"Showing map",msg,false,false);
         JSONObject body = new JSONObject();
         try {
-            /*body.put("latitude", "51.958542");
-            body.put("longitude", "7.627339");
-            body.put("arrivalDate", "2017-11-20");
-            body.put("departureDate", "2017-11-21");*/
             body.put("latitude", latitude);
             body.put("longitude", longitude);
             body.put("arrivalDate", arrivalDate);
@@ -149,6 +145,9 @@ public class PhotoInfo extends AppCompatActivity implements View.OnClickListener
                             JSONObject picData = new JSONObject(s);
                             Intent mapInfo = new Intent(PhotoInfo.this, ShowMapInformation.class);
                             mapInfo.putExtra("hotels", picData.toString());
+                            mapInfo.putExtra("centreLongitude", longitude);
+                            mapInfo.putExtra("centreLatitude", latitude);
+                            mapInfo.putExtra("description", description);
                             PhotoInfo.this.startActivity(mapInfo);
 
                         } catch(JSONException ex) {
