@@ -58,27 +58,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="1">
 
                 <Button
                     android:id="@+id/button6"
-                    android:layout_width="65dp"
-                    android:layout_height="165dp"
+                    android:layout_width="95dp"
+                    android:layout_height="98dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
-                    android:layout_weight="0.5"
                     android:background="@drawable/arrive"
-                    android:onClick="arrivalButton" />
+                    android:onClick="arrivalButton"
+                    android:layout_weight="0.06"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="45dp"
+                    />
 
                 <Button
                     android:id="@+id/button7"
-                    android:layout_width="65dp"
-                    android:layout_height="162dp"
+                    android:layout_width="102dp"
+                    android:layout_height="98dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
-                    android:layout_weight="0.50"
                     android:background="@drawable/departure"
-                    android:onClick="departureButton" />
+                    android:onClick="departureButton"
+                    android:layout_weight="0.03" />
             </LinearLayout>
 
             <DatePicker
@@ -86,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="11dp"
-                android:layout_marginLeft="15dp" />
+                android:layout_marginLeft="7dp" />
 
 
 
